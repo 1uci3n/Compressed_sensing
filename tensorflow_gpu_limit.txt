@@ -1,0 +1,15 @@
+# 方法１
+# tf2.2では失効
+# Limit the use of graphics memory
+# tf.config.gpu.set_per_process_memory_growth(True)
+
+# 方法２
+# Limit the use of graphics memory
+physical_devices = tf.config.experimental.list_physical_devices('GPU')
+if len(physical_devices) > 0:
+    for device in physical_devices:
+        tf.config.experimental.set_memory_growth(device, True)
+        print('{} memory growth: {}'.format(device, tf.config.experimental.get_memory_growth(device)))
+else:
+    print("Not enough GPU hardware devices available")
+# 参考元:https://qiita.com/studio_haneya/items/4dfaf2fb2ac44818e7e0
