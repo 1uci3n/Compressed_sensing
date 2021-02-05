@@ -43,7 +43,7 @@
 *.pdb
 
 # Temp log files
-temp*
+temp/*
 
 # Kernel Module Compile Results
 *.mod*
