@@ -1,0 +1,5 @@
+1_Basic_Linear_Decoder 最基本的线性解码器:线性指的是detector 以及 esitmator的排列为线性
+2_Basic_Linear_Decoder_py2ver 基本的线性解码器的python2版本: 独立编写与python3版本无直接关系
+
+1_ 第一次的尝试,各种实验性代码
+2
