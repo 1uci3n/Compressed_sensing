@@ -2,7 +2,7 @@
 # @Author: weilantian
 # @Date:   2021-01-19
 # @Last Modified by:   1uci3n
-# @Last Modified time: 2021-06-21 15:00:03
+# @Last Modified time: 2021-06-21 15:18:00
 
 # @Python_version: 3.8.
 # @this_version: 1.0
@@ -19,17 +19,15 @@ class NMSE_Accuracy(keras.metrics.Metric):
         self.sample_number = self.add_weight(name="sample_number", initializer="zeros")
 
     def update_state(self, y_true, y_pred, sample_weight=None):
-        sum_nmse = 0
-        sample_number = 0
         diff = y_pred - y_true
         denominator = tf.reduce_sum(tf.pow(y_true, 2), 1)
         current_nmse = tf.reduce_sum(tf.pow(diff, 2), 1) / denominator
         current_nmse = tf.where(tf.math.is_nan(current_nmse)|tf.math.is_inf(current_nmse), tf.zeros_like(current_nmse), current_nmse)
-        current_nmse = tf.cast(current_nmse, "float32")
-        sum_nmse += tf.reduce_sum(current_nmse)
+        current_nmse = tf.cast(tf.reduce_sum(current_nmse), "float32")
+        self.sum_nmse.assign_add(current_nmse)
         current_sample_number = tf.math.count_nonzero(denominator)
         current_sample_number = tf.cast(current_sample_number, "float32")
-        sample_number += current_sample_number
+        self.sample_number.assign_add(current_sample_number)
 
     def result(self):
         return 10 * (tf.math.log(self.sum_nmse / self.sample_number) / tf.math.log(10.))
