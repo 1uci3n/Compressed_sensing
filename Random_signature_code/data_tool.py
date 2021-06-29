@@ -2,7 +2,7 @@
 # @Author: weilantian
 # @Date:   2021-01-04 22:44:06
 # @Last Modified by:   1uci3n
-# @Last Modified time: 2021-06-29 15:53:20
+# @Last Modified time: 2021-06-29 15:55:36
 
 # @Python_version: 3.9.1
 
@@ -27,7 +27,7 @@ def get_random_triad_signature_matrix_0_1_inverse1(user_number, code_length):
     return matrix * np.random.binomial(1,0.5, (user_number,code_length))
 
 def get_gauss_random_signature_matrix(user_number, code_length, mean=0, std=1 ):
-    matrix = np.random.normal(mean, std, size=(user_number, code_length))
+    return np.random.normal(mean, std, size=(user_number, code_length))
 
 # a function to generate the random data set by give set size and signature matrix
 # @size data size
