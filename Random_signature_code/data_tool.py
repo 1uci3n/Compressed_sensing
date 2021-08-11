@@ -2,7 +2,7 @@
 # @Author: weilantian
 # @Date:   2021-01-04 22:44:06
 # @Last Modified by:   1uci3n
-# @Last Modified time: 2021-06-29 15:55:36
+# @Last Modified time: 2021-08-11 17:59:41
 
 # @Python_version: 3.9.1
 
@@ -52,13 +52,30 @@ def get_dataset(size, signature_matrix, acteve_rate=0.1, is_fading=0, fading_sca
     
 def get_dataset_with_noise(size, signature_matrix, snr_dB, acteve_rate=0.1, is_fading=0, fading_scale=1.0, test_data_size=1000):
     Y_set, X_set, H_set = get_dataset(size, signature_matrix, acteve_rate=acteve_rate, is_fading=is_fading, fading_scale=fading_scale)
-    single_bit_power = test_power_of_signature_matrix(signature_matrix, np.shape(signature_matrix)[1], acteve_rate=acteve_rate, test_data_size=test_data_size)
+    single_bit_power = get_average_power_of_signature_matrix(signature_matrix, np.shape(signature_matrix)[1], acteve_rate=acteve_rate)
     snr_rate = snr_tool_dB_2_rate(snr_dB)
     noise_variance = single_bit_power / snr_rate
     Y_set_with_noise = Y_set + np.random.normal(loc=0, scale=np.sqrt(noise_variance), size=Y_set.shape)
     return Y_set_with_noise, X_set, H_set, Y_set
 
-def test_power_of_signature_matrix(signature_matrix, code_length, acteve_rate=0.1, test_data_size=1000):
+
+def test_power_of_signature_matrix_fixed(signature_matrix, code_length, acteve_rate=0.1, test_data_size=1000):
+    if code_length != np.shape(signature_matrix)[1] :
+        print('code length error')
+        return None
+    Y_set, _, _ = get_dataset(test_data_size, signature_matrix, acteve_rate=acteve_rate, is_fading=0)
+    sum_power = Y_set.sum()
+    entire_signal_power = sum_power / test_data_size
+    single_bit_power = entire_signal_power / code_length
+    return single_bit_power
+
+def get_average_power_of_signature_matrix(signature_matrix, code_length, acteve_rate=0.1):
+    if code_length != np.shape(signature_matrix)[1] :
+        print('code length error')
+        return None
+    return signature_matrix.mean() * np.shape(signature_matrix)[0] * acteve_rate
+
+def test_power_of_signature_matrix_err(signature_matrix, code_length, acteve_rate=0.1, test_data_size=1000):
     if code_length != np.shape(signature_matrix)[1] :
         print('code length error')
         return None
