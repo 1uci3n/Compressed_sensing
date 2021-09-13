@@ -73,7 +73,7 @@ def get_average_power_of_signature_matrix(signature_matrix, code_length, acteve_
     if code_length != np.shape(signature_matrix)[1] :
         print('code length error')
         return None
-    return signature_matrix.mean() * np.shape(signature_matrix)[0] * acteve_rate
+    return np.abs(signature_matrix).mean() * np.shape(signature_matrix)[0] * acteve_rate
 
 def test_power_of_signature_matrix_err(signature_matrix, code_length, acteve_rate=0.1, test_data_size=1000):
     if code_length != np.shape(signature_matrix)[1] :
