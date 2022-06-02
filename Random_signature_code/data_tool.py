@@ -2,7 +2,7 @@
 # @Author: weilantian
 # @Date:   2021-01-04 22:44:06
 # @Last Modified by:   1uci3n
-# @Last Modified time: 2022-06-02 11:54:10
+# @Last Modified time: 2022-06-02 11:58:24
 
 # @Python_version: 3.9.1
 
@@ -27,7 +27,7 @@ def get_random_triad_signature_matrix_0_1_inverse1(user_number, code_length):
     matrix = 1 - (2 * np.random.binomial(1,0.5, (user_number,code_length)))
     return matrix * np.random.binomial(1,0.5, (user_number,code_length))
 
-def get_random_triad_signature_matrix_0_1(user_number, code_length):
+def get_random_binary_signature_matrix_0_1(user_number, code_length):
     """
     """
     matrix = np.random.binomial(1,0.5, (user_number,code_length))
