@@ -2,7 +2,7 @@
 # @Author: weilantian
 # @Date:   2021-01-04 22:44:06
 # @Last Modified by:   1uci3n
-# @Last Modified time: 2022-06-02 11:58:24
+# @Last Modified time: 2022-08-08 12:49:55
 
 # @Python_version: 3.9.1
 
@@ -78,7 +78,7 @@ def get_dataset_with_noise(size, signature_matrix, snr_dB, acteve_rate=0.1, is_f
     # else:
     single_bit_power = get_average_power_of_signature_matrix(signature_matrix, np.shape(signature_matrix)[1], acteve_rate=acteve_rate)
     snr_rate = snr_tool_dB_2_rate(snr_dB)
-    noise_variance = single_bit_power / snr_rate
+    noise_variance = (single_bit_power / snr_rate) / 2
     Y_set_with_noise = Y_set + np.random.normal(loc=0, scale=np.sqrt(noise_variance), size=Y_set.shape)
     if print_var:
         print(noise_variance)
