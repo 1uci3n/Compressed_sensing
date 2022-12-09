@@ -2,7 +2,7 @@
 # @Author: weilantian
 # @Date:   2021-01-04 22:44:06
 # @Last Modified by:   1uci3n
-# @Last Modified time: 2022-08-08 12:49:55
+# @Last Modified time: 2022-12-09 14:59:08
 
 # @Python_version: 3.9.1
 
@@ -11,27 +11,76 @@
 from statistics import variance
 import numpy as np
 
-# a simple function to get (1, -1)-binary signature matrix by give user number and code length.
-#
-# @user_number the total number of user
-# @code_length the code length of signature code
-#
-# @return matrix signature matrix
 def get_random_binary_signature_matrix_1_inverse1(user_number, code_length):
+    '''
+    a simple function to get (1, -1)-binary signature matrix by give user number and code length.
+    (0.5,0.5)
+
+    Args:
+        user_number: the total number of user
+        code_length: the code length of signature code
+
+    Returns:
+        matrix signature matrix
+    '''
     matrix = 1 - (2 * np.random.binomial(1,0.5, (user_number,code_length)))
     return matrix
 
 def get_random_triad_signature_matrix_0_1_inverse1(user_number, code_length):
-    """
-    """
+    '''
+    a simple function to get (0, 1, -1)-signature matrix by give user number and code length.
+    (0.5,0.25,0.25)
+
+    Args:
+        user_number: the total number of user
+        code_length: the code length of signature code
+
+    Returns:
+        matrix signature matrix
+    '''
     matrix = 1 - (2 * np.random.binomial(1,0.5, (user_number,code_length)))
     return matrix * np.random.binomial(1,0.5, (user_number,code_length))
 
 def get_random_binary_signature_matrix_0_1(user_number, code_length):
-    """
-    """
+    '''
+    a simple function to get (0, 1)-binary signature matrix by give user number and code length.
+    (0.5,0.5)
+
+    Args:
+        user_number: the total number of user
+        code_length: the code length of signature code
+
+    Returns:
+        matrix signature matrix
+    '''
     matrix = np.random.binomial(1,0.5, (user_number,code_length))
     return matrix
+
+def get_random_complex_gauss_matrix(m, n, loc=0, scale=0.5):
+    '''
+    m numbr of rows
+    n number of columns
+    loc Mean (“centre”) of the distribution
+    scale Standard deviation (spread or “width”) of the distribution
+    '''
+    original_gauss_matrix = np.random.normal(loc, scale, (m, n, 2))
+    return original_gauss_matrix.view(np.complex128).reshape(m, n)
+
+def get_random_complex_1_inv_1_matrix(m, n):
+    '''
+    m numbr of rows
+    n number of columns
+    '''
+    original_1_inv_1_matrix = (np.random.binomial(1,0.5,(10,10,2)).astype(np.float64)) * 2 - 1
+    return original_1_inv_1_matrix.view(np.complex128)
+
+def get_random_complex_1_0_matrix(m, n):
+    '''
+    m numbr of rows
+    n number of columns
+    '''
+    original_1_0_matrix = np.random.binomial(1,0.5,(10,10,2)).astype(np.float64)
+    return original_1_0_matrix.view(np.complex128)
 
 def get_gauss_random_signature_matrix(user_number, code_length, mean=0, std=1 ):
     return np.random.normal(mean, std, size=(user_number, code_length))
