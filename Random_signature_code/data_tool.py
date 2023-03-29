@@ -2,7 +2,7 @@
 # @Author: weilantian
 # @Date:   2021-01-04 22:44:06
 # @Last Modified by:   1uci3n
-# @Last Modified time: 2022-12-12 16:57:35
+# @Last Modified time: 2023-3-21 23:00:35
 
 # @Python_version: 3.9.1
 
@@ -70,7 +70,7 @@ def get_random_complex_gauss_matrix(m, n, loc=0, scale=0.5):
         matrix a complex Gaussian matrix.
     '''
     original_gauss_matrix = np.random.normal(loc, scale, (m, n, 2))
-    matrix original_gauss_matrix.view(np.complex128).reshape(m, n)
+    matrix = original_gauss_matrix.view(np.complex128).reshape(m, n)
     return matrix
 
 def get_random_complex_1_inv_1_matrix(m, n):
@@ -85,7 +85,7 @@ def get_random_complex_1_inv_1_matrix(m, n):
         matrix a complex (1,-1)-matrix.
     '''
     original_1_inv_1_matrix = (np.random.binomial(1,0.5,(10,10,2)).astype(np.float64)) * 2 - 1
-    matrix original_1_inv_1_matrix.view(np.complex128)
+    matrix = original_1_inv_1_matrix.view(np.complex128)
     return matrix
 
 def get_random_complex_1_0_matrix(m, n):
@@ -143,7 +143,7 @@ def get_dataset(size, signature_matrix, acteve_rate=0.1, is_fading=False, fading
 
 def get_dataset_with_double_side_noise(size, signature_matrix, snr_dB, acteve_rate=0.1, is_fading=False, fading_scale=1.0, fading_mode=1, print_var=False, classic_noise=False):
     '''
-    a function to generate the random data set by give set size and signature matrix 
+    a function to generate the random data set by give set size and signature matrix
     with doubel side noise
 
     Args:
